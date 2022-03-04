@@ -78,13 +78,16 @@ public class UserService {
         if (userDAO.getById(user_id) == null) {
             throw new UserNotFoundException("User with id " + user_id + " could not be found");
         }
+        if (userDAO.isOnActivity(user_id, activity_id)) {
+            throw new IllegalStateException("User with id " + user_id + " is already on activity with id " + activity_id);
+        }
 
         int freeSpaces = userDAO.getFreeSpaces(activity_id);
 
         if (freeSpaces > 0) {
             int result = userDAO.addUserToActivity(user_id, activity_id);
             if (result != 1) {
-                throw new IllegalStateException("User with id " + user_id + " could not be removed from activity");
+                throw new IllegalStateException("User with id " + user_id + " could not be added to activity");
             }
         }
         else {
@@ -93,8 +96,12 @@ public class UserService {
     }
 
     public void removeUserFromActivity(Integer user_id, Integer activity_id) {
+
         if (userDAO.getById(user_id) == null) {
             throw new UserNotFoundException("User with id " + user_id + " could not be found");
+        }
+        if (!userDAO.isOnActivity(user_id, activity_id)) {
+            throw new IllegalStateException("User with id " + user_id + " is not on activity with id " + activity_id);
         }
 
         int result = userDAO.removeUserFromActivity(user_id, activity_id);

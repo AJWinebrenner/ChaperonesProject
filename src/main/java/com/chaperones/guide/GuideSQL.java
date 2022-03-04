@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository("guidePostgres")
 public class GuideSQL implements GuideDAO {
+
     private JdbcTemplate jdbcTemplate;
 
     public GuideSQL(JdbcTemplate jdbcTemplate) {

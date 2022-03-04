@@ -167,4 +167,23 @@ public class UserSQL implements UserDAO {
         }
         return count;
     }
+
+    public boolean isOnActivity(Integer user_id, Integer activity_id) {
+
+        String sql = """
+                SELECT EXISTS(
+                SELECT *
+                FROM bookings
+                WHERE (user_id = ?
+                AND activity_id = ?)
+                )
+                """;
+
+        Boolean onActivity =  jdbcTemplate.queryForObject(sql, Boolean.class, user_id, activity_id);
+
+        if (onActivity == null){
+            onActivity = false;
+        }
+        return onActivity;
+    }
 }

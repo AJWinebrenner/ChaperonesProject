@@ -14,4 +14,5 @@ public interface UserDAO {
     public int addUserToActivity(Integer user_id, Integer activity_id);
     public int getFreeSpaces(Integer activity_id);
     public int removeUserFromActivity(Integer user_id, Integer activity_id);
-}
+    public boolean isOnActivity(Integer user_id, Integer activity_id);
+    }
