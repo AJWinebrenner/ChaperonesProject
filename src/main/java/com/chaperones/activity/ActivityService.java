@@ -16,15 +16,10 @@ public class ActivityService {
         this.activityDAO = activityDAO;
     }
 
-    // ----------------------------------------------------------
-
     // Method to get all the activities
-
     public List<Activity> getAllActivities() {
         return activityDAO.getAll();
     }
-
-    // ----------------------------------------------------------
 
     // Method to add a new activity
     public void addNewActivity(Activity activity) {
@@ -50,10 +45,7 @@ public class ActivityService {
         }
     }
 
-    // ----------------------------------------------------------
-
     // Method to get an activity by id
-
     public Activity getActivityById(Integer id) {
         // check if the activity exists
         Activity activity = activityDAO.getById(id);
@@ -65,10 +57,7 @@ public class ActivityService {
         return activity;
     }
 
-    // ----------------------------------------------------------
-
     // Method to update an activity by id
-
     public void updateActivityById(Integer id, Activity activity) {
         // if it doesn't exist then throw exception
         if (activityDAO.getById(id) == null) {
@@ -82,11 +71,7 @@ public class ActivityService {
         }
     }
 
-    // ----------------------------------------------------------
-
-
     // Method to delete an activity by id
-
     public void deleteActivityById(Integer deleteId) {
         if (activityDAO.getById(deleteId) == null) {
             throw new ActivityDoesNotExistException("Sorry, activity with id " + deleteId + " does not exist");
@@ -99,11 +84,7 @@ public class ActivityService {
         }
     }
 
-    // ----------------------------------------------------------
-
     // Method to get all the users booked on a given activity
-
-    // want to return a list of all the users
     public List<User> getAllUsersFromGivenActivity(Integer id){
         // check if the activity exists
         if (activityDAO.getById(id) == null) {
@@ -114,10 +95,7 @@ public class ActivityService {
         return activityDAO.getAllUsersFromGivenActivity(id);
     }
 
-
-    // ----------------------------------------------------------
     //  Method to check if activity has free spaces
-
     public int getFreeSpaces(Integer id){
         if (activityDAO.getById(id) == null) {
             throw new ActivityDoesNotExistException("Sorry, activity with id " + id + " does not exist");
