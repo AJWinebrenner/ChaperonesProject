@@ -22,7 +22,7 @@ public class GuideService {
         for (Guide exist : guidesList) {
             //if a guide with the same phone number or email is already in the list of all the guides then the guide already exists. It could be a phone and (&&) email.
             if (exist.getPhoneNumber().equals(guide.getPhoneNumber()) || exist.getEmail().equalsIgnoreCase(guide.getEmail())) {
-                throw new IllegalStateException("Guide already exists");
+                throw new IllegalArgumentException("Guide already exists");
             }
         }
         //if they do not already exist add the guide
@@ -34,21 +34,15 @@ public class GuideService {
 
     }
     
-    public List<Guide> allGuides(){
-        //check list is not empty if it is alert user
-        List<Guide> guides = guideDAO.getAll();
-        if(guides == null){
-            throw new IllegalStateException("There are no guides");
-        }
-        return guides;
-    }
-   public Guide guideById(Integer id){
-       Guide selected = guideDAO.getById(id);
+    public List<Guide> allGuides() {return guideDAO.getAll();}
+
+    public Guide guideById(Integer id){
+        Guide selected = guideDAO.getById(id);
         if (selected == null) {
            throw new GuideDoesNotExistException("This guide does not exist");
         } else return selected;
-   }
-   public void updateGuide(Integer id, Guide guide){
+    }
+    public void updateGuide(Integer id, Guide guide){
        //check if the guide exists if they do not throw exception saying so
        if (guideDAO.getById(id) == null) {
            throw new GuideDoesNotExistException("This guide does not exist");
@@ -59,11 +53,12 @@ public class GuideService {
        int updated = guideDAO.updateById(id, guide);
        // check the confirmation that guide has been updated if not
        // inform user that this has not happened
-       if(updated != 1){
+       if (updated != 1){
            throw new IllegalStateException("Unable to update this guide");
        }
-   }
-   public void deleteGuide(Integer id){
+    }
+
+    public void deleteGuide(Integer id){
        //check if the guide exists
        if (guideDAO.getById(id) == null) {
            throw new GuideDoesNotExistException("This guide does not exist");
@@ -74,7 +69,8 @@ public class GuideService {
        if(deleted != 1){
            throw new IllegalStateException("Unable to delete this guide");
        }
-   }
+    }
+
    //get all activities assigned to a guide
     public List<Activity> guidesActivities(Integer id, boolean cancelled){
         //check if the guide exists

@@ -34,7 +34,7 @@ public class ActivityService {
         for (Activity currentActivity : checkActivity) {
             // throw exception if 'currentActivity' is equal to the activity passed
             if (currentActivity.equals(activity)) {
-                throw new IllegalStateException("Sorry, this activity already exists. Please try again!");
+                throw new IllegalArgumentException("Sorry, this activity already exists. Please try again!");
             }
         }
 
